@@ -24,7 +24,10 @@ export class AuthService {
         },
       });
       const payload = { sub: user.id, email: user.email };
-      return { access_token: await this.jwtService.signAsync(payload) };
+      return {
+        access_token: await this.jwtService.signAsync(payload),
+        user_id: user.id,
+      };
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.CONFLICT);
     }
@@ -41,7 +44,10 @@ export class AuthService {
       throw new HttpException('Wrong password', HttpStatus.UNAUTHORIZED);
     }
     const payload = { sub: user.id, email: user.email };
-    return { access_token: await this.jwtService.signAsync(payload) };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      user_id: user.id,
+    };
   }
 
   async getProfile(email: string) {
@@ -51,6 +57,6 @@ export class AuthService {
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    return { user_id: user.id, email: email };
+    return { user_id: user.id, email: email, balance: user.balance };
   }
 }
