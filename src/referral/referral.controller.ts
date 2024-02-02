@@ -18,6 +18,7 @@ export class ReferralController {
         user_id: { type: 'number' },
         product_id: { type: 'number' },
         category_id: { type: 'number' },
+        title: { type: 'string' },
       },
     },
   })
